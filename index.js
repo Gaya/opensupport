@@ -45,4 +45,4 @@ app.use(async (ctx) => {
 });
 
 app.listen(process.env.PORT || 1337);
-console.log('Listening to 1337');
+console.log(`Listening to ${process.env.PORT || 1337}`);
