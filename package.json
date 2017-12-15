@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node -r babel-register index.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +14,9 @@
     "babel-eslint": "^8.0.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
-    "babel-preset-flow": "^6.23.0"
+    "babel-preset-flow": "^6.23.0",
+    "koa": "^2.4.1",
+    "koa-multer": "^1.0.2"
   },
   "devDependencies": {
     "eslint": "^4.13.1"
