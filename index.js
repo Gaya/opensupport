@@ -1,4 +1,5 @@
 import Koa from 'koa';
+import Router from 'koa-router';
 import multer from 'koa-multer';
 import fs from 'fs';
 
@@ -28,9 +29,9 @@ function readUpload(path) {
   });
 }
 
-app.use(upload.single('packageJson'));
+const router = new Router();
 
-app.use(async (ctx) => {
+router.post('/scan', upload.single('packageJson'), async (ctx) => {
   try {
     const data = await readUpload(ctx.req.file.path);
 
@@ -43,6 +44,12 @@ app.use(async (ctx) => {
     ctx.throw(500, e.message);
   }
 });
+
+router.get('/', (ctx) => {
+  ctx.body = 'Send POST request with package.json file in `packageJson` field to /scan';
+});
+
+app.use(router.routes()).use(router.allowedMethods());
 
 app.listen(process.env.PORT || 1337);
 console.log(`Listening to ${process.env.PORT || 1337}`);
