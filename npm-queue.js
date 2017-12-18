@@ -1,7 +1,9 @@
 import fs from 'fs';
-import { exec } from 'child_process';
+import request from 'request';
+import cheerio from 'cheerio';
 
 const readQueue = {};
+const rootUrl = 'https://www.npmjs.com/package';
 
 function addToNpmQueue(name) {
   return new Promise((resolve, reject) => {
@@ -21,7 +23,7 @@ function readFromNpm(name) {
   readQueue[name] = [];
 
   return new Promise((resolve, reject) => {
-    exec(`npm view ${name} --json`, {}, (error, stdout, stderr) => {
+    request(`${rootUrl}/${name}`, (error, response, body) => {
       if (error) {
         // reject the whole queue
         readQueue[name].map(f => f.reject(error));
@@ -30,14 +32,30 @@ function readFromNpm(name) {
         reject(error);
       }
 
-      fs.writeFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, stdout, (err) => {
+      const $ = cheerio.load(body);
+      const maintainers = Array.from($('.collaborators a img')
+        .map((i, element) => $(element).attr('alt')));
+      const dependencies = Array.from($('h3:contains("Dependencies")').next().find('a')
+        .map((i, element) => $(element).text()))
+        .reduce((combined, item) => ({
+          ...combined,
+          [item]: '',
+        }), {});
+
+      const info = {
+        name,
+        maintainers,
+        dependencies,
+      };
+
+      const file = JSON.stringify(info);
+
+      fs.writeFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, file, (err) => {
         if (err) {
           console.error(err);
         } else {
           console.info(`Wrote ${name}.json`);
         }
-
-        const info = JSON.parse(stdout);
 
         // resolve the whole queue
         readQueue[name].map(f => f.resolve(info));
