@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "mkdir files",
     "start": "node -r babel-register index.js"
   },
   "author": "",
