@@ -17,7 +17,7 @@ class Upload extends Component {
 
     try {
       const file = this.validFile(e.target.files[0]);
-      this.props.uploadFile(file);
+      this.props.dispatch(uploadFile(file));
     } catch (e) {
       console.error(e);
     }
@@ -44,12 +44,4 @@ class Upload extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    uploadFile(file) {
-      dispatch(uploadFile(file));
-    },
-  };
-}
-
-export default connect(null, mapDispatchToProps)(Upload);
+export default connect()(Upload);
