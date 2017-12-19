@@ -25,6 +25,12 @@ const router = new Router({
   prefix: '/scan',
 });
 
+async function parsePackageJson(packageJson) {
+  const dependencies = jsonToDependencies(packageJson);
+
+  return maintainersCountOfProject(dependencies);
+}
+
 router.post('/upload', upload.single('package'), async (ctx) => {
   if (!ctx.req.file) {
     ctx.throw(400, 'No package file provided.');
@@ -32,12 +38,21 @@ router.post('/upload', upload.single('package'), async (ctx) => {
 
   try {
     const data = await readUpload(ctx.req.file.path);
-
     const packageJson = JSON.parse(data.toString());
-    const dependencies = jsonToDependencies(packageJson);
 
-    const maintainers = await maintainersCountOfProject(dependencies);
-    ctx.body = maintainers;
+    ctx.body = await parsePackageJson(packageJson);
+  } catch (e) {
+    ctx.throw(500, e.message);
+  }
+});
+
+router.post('/json', async (ctx) => {
+  if (!ctx.request.body) {
+    ctx.throw(400, 'Send your package.json contents as the body');
+  }
+
+  try {
+    ctx.body = await parsePackageJson(ctx.request.body);
   } catch (e) {
     ctx.throw(500, e.message);
   }
