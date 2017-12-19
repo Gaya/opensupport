@@ -35,13 +35,20 @@ class Upload extends Component {
     return file;
   }
 
-  render() {
+  render({ processing }) {
     return (
       <form method="POST">
-        <input type="file" onChange={this.onFileChange} />
+        <input disabled={processing} type="file" onChange={this.onFileChange} />
+        {processing && <div>Processing package.json file</div>}
       </form>
     );
   }
 }
 
-export default connect()(Upload);
+function mapStateToProps({ processing }) {
+  return {
+    processing,
+  };
+}
+
+export default connect(mapStateToProps)(Upload);

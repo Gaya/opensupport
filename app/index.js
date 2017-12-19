@@ -5,13 +5,14 @@ import { createMiddleware } from 'redux-listeners';
 
 import App from './components/App';
 
+import reducers from './reducers';
 import registerListeners from './handlers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const listenMiddleware = createMiddleware();
 
 const store = createStore(
-  () => {},
+  reducers,
   composeEnhancers(applyMiddleware(listenMiddleware)),
 );
 
