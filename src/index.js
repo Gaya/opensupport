@@ -7,7 +7,7 @@ import scan from './scan';
 
 const app = new Koa();
 
-app.use(koaStatic(`${__dirname}/public`));
+app.use(koaStatic(`${__dirname}/../public`));
 app.use(json({ pretty: false }));
 app.use(cors());
 
