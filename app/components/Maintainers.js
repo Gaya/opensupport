@@ -1,13 +1,15 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 
-function Maintainer({ name, count }) {
+function Maintainer({ name, avatar, count }) {
   return (
-    <tr>
-      <td>{count}</td>
-      <td>{name}</td>
-      <td>donate</td>
-    </tr>
+    <div>
+      <picture>
+        <img src={avatar} alt={name} />
+      </picture>
+      <div>Found in {count} dependencies</div>
+      <div>{name}</div>
+    </div>
   );
 }
 
@@ -17,18 +19,9 @@ function Maintainers({ maintainers }) {
   }
 
   return (
-    <table>
-      <tr>
-        <th>
-          #
-        </th>
-        <th>
-          Name
-        </th>
-        <th />
-      </tr>
+    <div>
       {maintainers.map(Maintainer)}
-    </table>
+    </div>
   );
 }
 

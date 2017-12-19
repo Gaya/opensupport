@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "npm run build",
     "start": "node -r babel-register ./src/index.js",
-    "start:dev": "webpack-dev-server",
+    "start:dev": "webpack-dev-server --hot",
     "build": "webpack --optimize-minimize"
   },
   "author": "",
@@ -23,6 +23,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "css-loader": "^0.28.7",
+    "gravatar": "^1.6.0",
     "html-webpack-plugin": "^2.30.1",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",

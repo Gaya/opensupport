@@ -1,0 +1,30 @@
+.Upload {
+  background: #fafafa;
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px dashed #666;
+
+  &__intro {
+    margin: 0 0 20px 0;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__label {
+    display: inline-block;
+    border: 1px solid #9561e2;
+    background: transparent;
+    color: #9561e2;
+    padding: 0.4rem 1.5rem;
+    border-radius: 666px;
+    cursor: pointer;
+    transition: color 0.2s ease, background 0.2s ease;
+
+    &:hover {
+      color: #fff;
+      background: #9561e2;
+    }
+  }
+}

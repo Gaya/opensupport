@@ -3,6 +3,8 @@ import { connect } from 'preact-redux';
 
 const uploadFile = file => ({ type: 'UPLOAD_FILE', file });
 
+import './Upload.scss';
+
 class Upload extends Component {
   constructor(props) {
     super(props);
@@ -37,10 +39,21 @@ class Upload extends Component {
 
   render({ processing }) {
     return (
-      <form method="POST">
-        <p>Upload a package.json file to scan for maintainers</p>
-        <input disabled={processing} type="file" onChange={this.onFileChange} />
-        {processing && <div>Processing package.json file</div>}
+      <form className="Upload" method="POST">
+        <p className="Upload__intro">
+          Upload a package.json file to scan for top maintainers
+        </p>
+
+        <label className="Upload__label" htmlFor="upload">Browse</label>
+        <input
+          className="Upload__input"
+          id="upload"
+          disabled={processing}
+          type="file"
+          onChange={this.onFileChange}
+        />
+
+        {processing && <div className="Upload__processing">Processing package.json file</div>}
       </form>
     );
   }

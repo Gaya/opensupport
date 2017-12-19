@@ -1,5 +1,6 @@
 import { packageInfo } from './npm-queue';
 import { jsonToDependencies } from './helpers';
+import gravatar from 'gravatar';
 
 async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
   return packageInfo(name).then(async info => {
@@ -43,6 +44,7 @@ function totalMaintainersFromLibs(libs, current = []) {
         .filter(maintainer => !totals.find(item => item.name === maintainer.name))
         .map(maintainer => ({
           name: maintainer.name,
+          avatar: gravatar.url(maintainer.email),
           count: 1,
         }));
 
