@@ -2,11 +2,15 @@ module.exports = {
     "parser": "babel-eslint",
     "env": {
         "es6": true,
-        "node": true
+        "node": true,
+        "browser": true,
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "standard-preact"],
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
         "indent": [
