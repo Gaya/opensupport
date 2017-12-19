@@ -18,10 +18,12 @@
     "koa": "^2.4.1",
     "koa-multer": "^1.0.2",
     "koa-router": "^7.3.0",
-    "koa-static": "^4.0.2"
+    "koa-static": "^4.0.2",
+    "webpack": "^3.10.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
-    "eslint": "^4.13.1"
+    "eslint": "^4.13.1",
+    "webpack-dev-server": "^2.9.7"
   }
 }
