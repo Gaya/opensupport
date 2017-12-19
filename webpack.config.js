@@ -6,8 +6,8 @@ module.exports = {
   entry: './app/index',
 
   output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'public/assets'),
+    filename: 'opensupport.js',
+    path: path.resolve(__dirname, 'public'),
   },
 
   module: {
