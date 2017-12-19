@@ -1,6 +1,8 @@
 import { packageInfo } from './npm-queue';
 
 async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 3) {
+  console.log(`Getting info for ${name}`);
+
   return packageInfo(name).then(async info => {
     if (maxLevels === currentLevel) {
       return info;
