@@ -30,7 +30,7 @@ function totalMaintainersFromLibs(libs, current = []) {
     .reduce((totals, maintainers) => {
       const updated = totals
         .map(maintainer => {
-          if (maintainers.indexOf(maintainer.name) > -1) {
+          if (maintainers.find(item => item.name === maintainer.name)) {
             return {
               ...maintainer,
               count: maintainer.count + 1,
@@ -41,9 +41,9 @@ function totalMaintainersFromLibs(libs, current = []) {
         });
 
       const newItems = maintainers
-        .filter(maintainer => !totals.find(item => item.name === maintainer))
+        .filter(maintainer => !totals.find(item => item.name === maintainer.name))
         .map(maintainer => ({
-          name: maintainer,
+          name: maintainer.name,
           count: 1,
         }));
 

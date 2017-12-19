@@ -1,30 +1,45 @@
 import fs from 'fs';
-import { exec } from 'child_process';
 import async from 'async';
+import request from 'request';
+import npa from 'npm-package-arg';
 
 const filesDir = `${__dirname}/../../files`;
 
 const resolveQueue = {};
+
+function createUri(parsed) {
+  const base = 'https://registry.npmjs.org';
+
+  if (parsed.scope) {
+    return `${base}/${parsed.escapedName}`;
+  }
+
+  return `${base}/${parsed.escapedName}/${parsed.fetchSpec}`;
+}
+
 const npmQueue = async.queue(({ name }, callback) => {
-  exec(`npm view ${name} --json`, {}, (error, stdout, stderr) => {
-    if (error || stderr) {
+  const parsed = npa(name);
+  const uri = createUri(parsed);
+
+  request(uri, (error, response, body) => {
+    if (error) {
       // reject self
-      callback(error || stderr, null);
+      callback(error, null);
     }
 
-    fs.writeFile(`${filesDir}/${encodeURIComponent(name)}.json`, stdout, (err) => {
+    fs.writeFile(`${filesDir}/${encodeURIComponent(name)}.json`, body, (err) => {
       if (err) {
         console.error(err);
       } else {
         console.info(`Wrote ${name}.json`);
       }
 
-      const info = JSON.parse(stdout);
+      const info = JSON.parse(body);
 
       callback(null, info);
     });
   });
-}, parseInt(process.env.QUEUE_LIMIT || 20, 10));
+}, parseInt(process.env.QUEUE_LIMIT || 10, 10));
 
 function addToResolveQueue(name) {
   return new Promise((resolve, reject) => {
