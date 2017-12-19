@@ -1,5 +1,6 @@
+const webpack = require('webpack');
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './app/index',
@@ -35,6 +36,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'OpenSupport',
       template: 'app/index.html',
+    }),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      API_URL: JSON.stringify(process.env.API_URL || 'http://localhost:3030'),
     }),
   ],
 };
