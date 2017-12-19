@@ -1,3 +1,5 @@
+const receiveMaintainers = maintainers => ({ type: 'RECEIVE_MAINTAINERS', maintainers });
+
 const onUploadFile = (dispatch, action) => {
   var formData  = new FormData();
 
@@ -13,7 +15,7 @@ const onUploadFile = (dispatch, action) => {
       body: formData,
     })
     .then(response => response.json())
-    .then(maintainers => dispatch({ type: 'RECEIVE_MAINTAINERS', maintainers }));
+    .then(maintainers => dispatch(receiveMaintainers(maintainers)));
 };
 
 export default function registerListeners(listenMiddleware) {

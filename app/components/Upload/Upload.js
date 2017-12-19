@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import { uploadFile } from './actions';
+const uploadFile = file => ({ type: 'UPLOAD_FILE', file });
 
 class Upload extends Component {
   constructor(props) {
