@@ -1,5 +1,13 @@
 import { h, render } from 'preact';
+import { Provider } from 'preact-redux';
+import { createStore } from 'redux';
 
-import App from './App';
+import App from './components/App';
 
-render(<App />, document.body);
+const store = createStore(() => {});
+
+render((
+  <Provider store={store}>
+    <App />
+  </Provider>
+), document.body);
