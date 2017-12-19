@@ -13,7 +13,9 @@ function Maintainer({ name, avatar, count }) {
         <div className="Maintainer__name">
           <a href={`https://www.npmjs.com/~${name}`}>{name}</a>
         </div>
-        <div className="Maintainer__count">Found in <strong>{count}</strong> dependencies</div>
+        <div className="Maintainer__count">
+          Maintains <strong>{count}</strong> of your dependencies
+        </div>
       </div>
     </div>
   );
