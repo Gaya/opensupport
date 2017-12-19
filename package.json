@@ -12,7 +12,6 @@
   "dependencies": {
     "async": "^2.6.0",
     "babel-cli": "^6.26.0",
-    "babel-eslint": "^8.0.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
@@ -21,6 +20,7 @@
     "koa-router": "^7.3.0"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.3",
     "eslint": "^4.13.1"
   }
 }
