@@ -38,6 +38,7 @@ class Upload extends Component {
   render({ processing }) {
     return (
       <form method="POST">
+        <p>Upload a package.json file to scan for maintainers</p>
         <input disabled={processing} type="file" onChange={this.onFileChange} />
         {processing && <div>Processing package.json file</div>}
       </form>
