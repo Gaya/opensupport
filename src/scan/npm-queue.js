@@ -24,7 +24,7 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(null, info);
     });
   });
-}, process.env.QUEUE_LIMIT || 20);
+}, parseInt(process.env.QUEUE_LIMIT || 20, 10));
 
 function addToResolveQueue(name) {
   return new Promise((resolve, reject) => {
