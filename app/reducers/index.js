@@ -1,7 +1,5 @@
 import { combineReducers } from 'redux';
 
-import sampleMaintainers from './maintainers.json';
-
 const processing = (state = false, action) => {
   switch (action.type) {
     case 'RECEIVE_MAINTAINERS':
@@ -13,7 +11,7 @@ const processing = (state = false, action) => {
   }
 };
 
-const maintainers = (state = sampleMaintainers, action) => {
+const maintainers = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_MAINTAINERS':
       return action.maintainers;
