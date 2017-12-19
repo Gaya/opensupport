@@ -12,9 +12,11 @@ async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 3) {
       if (dependencies.length > 0) {
         return {
           ...info,
-          children:
-            await Promise.all(dependencies.map(dependency =>
-              recursivePackageInfo(dependency, currentLevel + 1, maxLevels))),
+          children: await Promise.all(dependencies.map(dependency => recursivePackageInfo(
+            dependency,
+            currentLevel + 1,
+            maxLevels,
+          ))),
         };
       }
     }
@@ -40,19 +42,17 @@ function totalMaintainersFromLibs(libs, current = []) {
 
       const newItems = maintainers
         .filter(maintainer => !totals.find(item => item.name === maintainer))
-        .map(maintainer => {
-          return {
-            name: maintainer,
-            count: 1,
-          }
-        });
+        .map(maintainer => ({
+          name: maintainer,
+          count: 1,
+        }));
 
       return [
         ...updated,
         ...newItems,
       ];
     }, current);
-};
+}
 
 export async function maintainersCountOfProject(dependencies) {
   const info = await Promise.all(dependencies.map(dependency => recursivePackageInfo(dependency)));

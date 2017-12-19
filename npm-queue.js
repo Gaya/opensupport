@@ -63,6 +63,7 @@ export function packageInfo(name) {
         return resolve(JSON.parse(data.toString()));
       } catch (e) {
         console.error(e);
+        reject(e);
       }
     });
   });
