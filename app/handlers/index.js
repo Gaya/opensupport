@@ -7,11 +7,13 @@ const onUploadFile = (dispatch, action) => {
     `${API_URL}/scan`,
     {
       method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
       body: formData,
-      mode: 'no-cors',
     })
     .then(response => response.json())
-    .then(console.log);
+    .then(maintainers => dispatch({ type: 'RECEIVE_MAINTAINERS', maintainers }));
 };
 
 export default function registerListeners(listenMiddleware) {
