@@ -10,7 +10,7 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(error || stderr, null);
     }
 
-    fs.writeFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, stdout, (err) => {
+    fs.writeFile(`${__dirname}/../files/${encodeURIComponent(name)}.json`, stdout, (err) => {
       if (err) {
         console.error(err);
       } else {
@@ -64,7 +64,7 @@ function readFromNpm(name) {
 
 export function packageInfo(name) {
   return new Promise((resolve, reject) => {
-    fs.readFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, (err, data) => {
+    fs.readFile(`${__dirname}/../files/${encodeURIComponent(name)}.json`, (err, data) => {
       if (err && err.errno === -2) {
         return resolve(readFromNpm(name));
       }
