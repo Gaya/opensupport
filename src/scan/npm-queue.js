@@ -24,7 +24,7 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(null, info);
     });
   });
-}, 10);
+}, 20);
 
 function addToResolveQueue(name) {
   return new Promise((resolve, reject) => {
