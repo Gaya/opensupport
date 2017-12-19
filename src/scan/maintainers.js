@@ -55,8 +55,7 @@ function totalMaintainersFromLibs(libs, current = []) {
 }
 
 export async function maintainersCountOfProject(dependencies) {
-  const info = await Promise.all(dependencies.map(dependency =>
-    recursivePackageInfo(dependency, 1, 2)));
+  const info = await Promise.all(dependencies.map(dependency => recursivePackageInfo(dependency)));
 
   const maintainerCount = info
     .reduce((totals, lib) => {
