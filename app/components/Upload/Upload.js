@@ -1,4 +1,7 @@
 import { h, Component } from 'preact';
+import { connect } from 'preact-redux';
+
+import { uploadFile } from './actions';
 
 class Upload extends Component {
   constructor(props) {
@@ -14,6 +17,7 @@ class Upload extends Component {
 
     try {
       const file = this.validFile(e.target.files[0]);
+      this.props.uploadFile(file);
     } catch (e) {
       console.error(e);
     }
@@ -40,4 +44,12 @@ class Upload extends Component {
   }
 }
 
-export default Upload;
+function mapDispatchToProps(dispatch) {
+  return {
+    uploadFile(file) {
+      dispatch(uploadFile(file));
+    },
+  };
+}
+
+export default connect(null, mapDispatchToProps)(Upload);

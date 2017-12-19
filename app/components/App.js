@@ -1,6 +1,6 @@
 import { h } from 'preact';
 
-import Upload from './Upload';
+import Upload from './Upload/Upload';
 
 function App() {
   return (
