@@ -27,7 +27,7 @@ async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 3) {
 
 function totalMaintainersFromLibs(libs, current = []) {
   return libs.map(lib => lib.maintainers)
-    .reduce((totals, maintainers) => {
+    .reduce((totals, maintainers = []) => {
       const updated = totals
         .map(maintainer => {
           if (maintainers.find(item => item.name === maintainer.name)) {
