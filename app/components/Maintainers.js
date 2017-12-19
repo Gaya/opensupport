@@ -1,14 +1,20 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 
+import './Maintainers.scss';
+
 function Maintainer({ name, avatar, count }) {
   return (
-    <div>
-      <picture>
-        <img src={avatar} alt={name} />
+    <div className="Maintainer">
+      <picture className="Maintainer__avatar">
+        <img className="Maintainer__avatar-image" src={avatar} alt={name} />
       </picture>
-      <div>Found in {count} dependencies</div>
-      <div>{name}</div>
+      <div className="Maintainer__info">
+        <div className="Maintainer__name">
+          <a href={`https://www.npmjs.com/~${name}`}>{name}</a>
+        </div>
+        <div className="Maintainer__count">Found in <strong>{count}</strong> dependencies</div>
+      </div>
     </div>
   );
 }
@@ -19,7 +25,7 @@ function Maintainers({ maintainers }) {
   }
 
   return (
-    <div>
+    <div className="Maintainers">
       {maintainers.map(Maintainer)}
     </div>
   );
