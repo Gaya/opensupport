@@ -6,7 +6,7 @@ const onUploadFile = (dispatch, action) => {
   formData.append('package', action.file);
 
   fetch(
-    `${API_URL}/scan`,
+    `${API_URL}/scan/upload`,
     {
       method: 'POST',
       headers: {
