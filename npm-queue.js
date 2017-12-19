@@ -1,11 +1,32 @@
 import fs from 'fs';
 import { exec } from 'child_process';
+import async from 'async';
 
-const readQueue = {};
+const resolveQueue = {};
+const npmQueue = async.queue(({ name }, callback) => {
+  exec(`npm view ${name} --json`, {}, (error, stdout, stderr) => {
+    if (error || stderr) {
+      // reject self
+      callback(error || stderr, null);
+    }
 
-function addToNpmQueue(name) {
+    fs.writeFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, stdout, (err) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.info(`Wrote ${name}.json`);
+      }
+
+      const info = JSON.parse(stdout);
+
+      callback(null, info);
+    });
+  });
+}, 5);
+
+function addToResolveQueue(name) {
   return new Promise((resolve, reject) => {
-    readQueue[name].push({
+    resolveQueue[name].push({
       resolve,
       reject,
     });
@@ -13,41 +34,30 @@ function addToNpmQueue(name) {
 }
 
 function readFromNpm(name) {
-  if (readQueue[name]) {
-    return addToNpmQueue(name);
+  if (resolveQueue[name]) {
+    return addToResolveQueue(name);
   }
 
   // create a read queue
-  readQueue[name] = [];
+  resolveQueue[name] = [];
 
   return new Promise((resolve, reject) => {
-    exec(`npm view ${name} --json`, {}, (error, stdout, stderr) => {
-      if (error || stderr) {
+    npmQueue.push({ name }, (err, info) => {
+      if (err) {
         // reject the whole queue
-        readQueue[name].map(f => f.reject(error || stderr));
+        resolveQueue[name].map(f => f.reject(err));
 
-        // reject self
-        reject(error || stderr);
+        reject(err);
       }
 
-      fs.writeFile(`${__dirname}/files/${encodeURIComponent(name)}.json`, stdout, (err) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.info(`Wrote ${name}.json`);
-        }
+      // resolve the whole queue
+      resolveQueue[name].map(f => f.resolve(info));
 
-        const info = JSON.parse(stdout);
+      // clear queue
+      delete resolveQueue[name];
 
-        // resolve the whole queue
-        readQueue[name].map(f => f.resolve(info));
-
-        // clear queue
-        delete readQueue[name];
-
-        // resolve self
-        resolve(info);
-      });
+      // resolve self
+      resolve(info);
     });
   });
 }
