@@ -2,6 +2,8 @@ import fs from 'fs';
 import { exec } from 'child_process';
 import async from 'async';
 
+const filesDir = `${__dirname}/../../files`;
+
 const resolveQueue = {};
 const npmQueue = async.queue(({ name }, callback) => {
   exec(`npm view ${name} --json`, {}, (error, stdout, stderr) => {
@@ -10,7 +12,7 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(error || stderr, null);
     }
 
-    fs.writeFile(`${__dirname}/../files/${encodeURIComponent(name)}.json`, stdout, (err) => {
+    fs.writeFile(`${filesDir}/${encodeURIComponent(name)}.json`, stdout, (err) => {
       if (err) {
         console.error(err);
       } else {
@@ -22,7 +24,7 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(null, info);
     });
   });
-}, 5);
+}, 10);
 
 function addToResolveQueue(name) {
   return new Promise((resolve, reject) => {
@@ -64,7 +66,7 @@ function readFromNpm(name) {
 
 export function packageInfo(name) {
   return new Promise((resolve, reject) => {
-    fs.readFile(`${__dirname}/../files/${encodeURIComponent(name)}.json`, (err, data) => {
+    fs.readFile(`${filesDir}/${encodeURIComponent(name)}.json`, (err, data) => {
       if (err && err.errno === -2) {
         return resolve(readFromNpm(name));
       }

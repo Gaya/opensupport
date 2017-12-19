@@ -40,10 +40,8 @@ router.post('/scan', upload.single('package'), async (ctx) => {
     const packageJson = JSON.parse(data.toString());
     const dependencies = jsonToDependencies(packageJson);
 
-    ctx.body = JSON.stringify(dependencies);
-
     const maintainers = await maintainersCountOfProject(dependencies);
-    ctx.body = JSON.stringify(maintainers);
+    ctx.body = maintainers;
   } catch (e) {
     ctx.throw(500, e.message);
   }
