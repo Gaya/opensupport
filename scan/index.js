@@ -29,7 +29,11 @@ function readUpload(path) {
 
 const router = new Router();
 
-router.post('/scan', upload.single('packageJson'), async (ctx) => {
+router.post('/scan', upload.single('package'), async (ctx) => {
+  if (!ctx.req.file) {
+    ctx.throw(400, 'No package file provided.');
+  }
+
   try {
     const data = await readUpload(ctx.req.file.path);
 

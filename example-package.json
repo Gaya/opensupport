@@ -1,7 +1,0 @@
-{
-  "name": "sample-app-package",
-  "devDependencies": {},
-  "dependencies": {
-    "classnames": "^2.2.5"
-  }
-}

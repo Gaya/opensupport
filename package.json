@@ -17,7 +17,8 @@
     "babel-preset-flow": "^6.23.0",
     "koa": "^2.4.1",
     "koa-multer": "^1.0.2",
-    "koa-router": "^7.3.0"
+    "koa-router": "^7.3.0",
+    "koa-static": "^4.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
