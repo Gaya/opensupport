@@ -3,15 +3,9 @@ import multer from 'koa-multer';
 import fs from 'fs';
 
 import { maintainersCountOfProject } from './maintainers';
+import { jsonToDependencies } from './helpers';
 
 const upload = multer({ dest: 'tmp/' });
-
-function jsonToDependencies(info) {
-  return Array.from(new Set([
-    ...Object.keys(info.dependencies || {}),
-    ...Object.keys(info.devDependencies || {}),
-  ]));
-}
 
 function readUpload(path) {
   return new Promise(resolve => {

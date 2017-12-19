@@ -1,24 +1,23 @@
 import { packageInfo } from './npm-queue';
+import { jsonToDependencies } from './helpers';
 
-async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 3) {
+async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
   return packageInfo(name).then(async info => {
     if (maxLevels === currentLevel) {
       return info;
     }
 
-    if (info.dependencies) {
-      const dependencies = Object.keys(info.dependencies);
+    const dependencies = jsonToDependencies(info);
 
-      if (dependencies.length > 0) {
-        return {
-          ...info,
-          children: await Promise.all(dependencies.map(dependency => recursivePackageInfo(
-            dependency,
-            currentLevel + 1,
-            maxLevels,
-          ))),
-        };
-      }
+    if (dependencies && dependencies.length > 0) {
+      return {
+        ...info,
+        children: await Promise.all(dependencies.map(dependency => recursivePackageInfo(
+          dependency,
+          currentLevel + 1,
+          maxLevels,
+        ))),
+      };
     }
 
     return info;
