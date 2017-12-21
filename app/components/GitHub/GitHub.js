@@ -16,6 +16,7 @@ class GitHub extends Component {
 
   scanUrl(e) {
     const url = e.target.value;
+
     const matchedResults = exp.exec(url);
 
     if (matchedResults) {
@@ -28,7 +29,7 @@ class GitHub extends Component {
     this.props.dispatch(githubError('Not a valid GitHub url'));
   }
 
-  render({ error }) {
+  render({ error, username, repository }) {
     return (
       <form className="GitHub">
         <p className="GitHub__intro">
@@ -39,20 +40,29 @@ class GitHub extends Component {
           className="GitHub__input"
           type="text"
           placeholder="https://github.com/username/repo"
-          onChange={this.onScanUrl}
+          onInput={this.onScanUrl}
         />
 
         {error !== '' && <div className="GitHub__error">{error}</div>}
+
+        {username !== '' && (
+          <div>
+            <div>Scan {username} account</div>
+            {repository !== '' && <div>Scan {username}/{repository}</div>}
+          </div>
+        )}
       </form>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { error } = state.github;
+  const { error, username, repository } = state.github;
 
   return {
     error,
+    username,
+    repository,
   };
 }
 
