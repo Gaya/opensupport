@@ -47,6 +47,7 @@
     "babel-eslint": "^8.0.3",
     "eslint": "^4.13.1",
     "eslint-config-standard-preact": "^1.1.6",
+    "flow-bin": "^0.61.0",
     "webpack-dev-server": "^2.9.7"
   }
 }
