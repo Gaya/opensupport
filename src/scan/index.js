@@ -30,7 +30,10 @@ const router = new Router({
 async function parsePackageJson(packageJson) {
   const dependencies = jsonToDependencies(packageJson);
 
-  return maintainersCountOfProject(dependencies);
+  return {
+    name: packageJson.name,
+    maintainers: await maintainersCountOfProject(dependencies),
+  };
 }
 
 router.post('/upload', upload.single('package'), async (ctx) => {

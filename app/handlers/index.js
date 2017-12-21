@@ -1,6 +1,6 @@
 import github from './github';
 
-export const receiveMaintainers = maintainers => ({ type: 'RECEIVE_MAINTAINERS', maintainers });
+export const receiveMaintainers = response => ({ type: 'RECEIVE_MAINTAINERS', response });
 
 const onUploadFile = (dispatch, action) => {
   var formData  = new FormData();
@@ -17,7 +17,7 @@ const onUploadFile = (dispatch, action) => {
       body: formData,
     })
     .then(response => response.json())
-    .then(maintainers => dispatch(receiveMaintainers(maintainers)));
+    .then(response => dispatch(receiveMaintainers(response)));
 };
 
 export default function registerListeners(listenMiddleware) {

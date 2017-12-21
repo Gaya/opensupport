@@ -16,7 +16,7 @@ const processing = (state = false, action) => {
 const maintainers = (state = [], action) => {
   switch (action.type) {
     case 'RECEIVE_MAINTAINERS':
-      return action.maintainers;
+      return action.response.maintainers;
     default:
       return state;
   }
