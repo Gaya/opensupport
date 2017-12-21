@@ -16,12 +16,23 @@ function App() {
       </p>
 
       <p>
-        OpenSupport is an idea by <a href="https://twitter.com/GayaKessler">Gaya Kessler</a>,
-        and is <a href="https://github.com/Gaya/opensupport">open source</a>.
+        OpenSupport scans your project's package.json for dependencies (and their dependencies) to
+        find out with maintainers' packages are used the most.
       </p>
 
       <Upload />
       <Maintainers />
+
+      <p>
+        OpenSupport is an idea by <a href="https://twitter.com/GayaKessler">Gaya Kessler</a>,
+        and is <a href="https://github.com/Gaya/opensupport">open source</a>.
+      </p>
+
+      <p>
+        Planned features: composer.json support, scan GitHub repository, scan GitHub account,
+        donate links for mainters, donate links for packages, packages maintained by maintainer in
+        results.
+      </p>
     </div>
   );
 }
