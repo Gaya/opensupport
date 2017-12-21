@@ -81,5 +81,5 @@ export async function maintainersCountOfProject(dependencies) {
     return 0;
   });
 
-  return sortedMaintainerCount.filter((item, index) => index < 50);
+  return sortedMaintainerCount.filter((item, index) => index < 20);
 }
