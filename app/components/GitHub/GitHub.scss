@@ -8,6 +8,21 @@
 
   &__intro {
     margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__logo {
+    width: 39px;
+    height: 39px;
+    margin-right: 10px;
+    display: block;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
 
   &__input {

@@ -3,6 +3,9 @@ import { connect } from 'preact-redux';
 
 import { githubMatched, githubError } from './actions';
 
+import SVGImage from '../SVGImage';
+import Logo from './GitHubLogo.svg';
+
 import './GitHub.scss';
 
 const exp = new RegExp(/https:\/\/github.com\/([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?/gi);
@@ -32,9 +35,10 @@ class GitHub extends Component {
   render({ error, username, repository }) {
     return (
       <form className="GitHub">
-        <p className="GitHub__intro">
-          Scan your Github account or enter URL to a repository:
-        </p>
+        <div className="GitHub__intro">
+          <SVGImage className="GitHub__logo" svg={Logo} />
+          <p>Scan your Github account or enter URL to a repository:</p>
+        </div>
 
         <input
           className="GitHub__input"
