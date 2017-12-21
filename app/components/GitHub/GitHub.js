@@ -7,6 +7,7 @@ import SVGImage from '../SVGImage';
 import Logo from './GitHubLogo.svg';
 
 import './GitHub.scss';
+import '../Button.scss';
 
 const exp = new RegExp(/https:\/\/github.com\/([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?/gi);
 
@@ -50,9 +51,9 @@ class GitHub extends Component {
         {error !== '' && <div className="GitHub__error">{error}</div>}
 
         {username !== '' && (
-          <div>
-            <div>Scan {username} account</div>
-            {repository !== '' && <div>Scan {username}/{repository}</div>}
+          <div className="GitHub__options">
+            <button className="Button">Scan account</button>
+            {repository !== '' && <button className="Button">Scan {username}/{repository}</button>}
           </div>
         )}
       </form>

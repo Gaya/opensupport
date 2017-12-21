@@ -4,6 +4,7 @@ import { connect } from 'preact-redux';
 const uploadFile = file => ({ type: 'UPLOAD_FILE', file });
 
 import './Upload.scss';
+import './Button.scss';
 
 class Upload extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class Upload extends Component {
           Upload a package.json file to scan for top maintainers
         </p>
 
-        <label className="Upload__label" htmlFor="upload">Browse</label>
+        <label className="Upload__label Button" htmlFor="upload">Browse</label>
         <input
           className="Upload__input"
           id="upload"

@@ -43,4 +43,17 @@
     color: orangered;
     margin: 20px 0 0 0;
   }
+
+  &__options {
+    margin: 20px 0 0 0;
+    display: flex;
+
+    button {
+      margin-right: 10px;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+  }
 }
