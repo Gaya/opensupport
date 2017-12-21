@@ -2,6 +2,18 @@ import { packageInfo } from './npm-queue';
 import { jsonToDependencies } from './helpers';
 import gravatar from 'gravatar';
 
+function sortByCount(a, b) {
+  if (a.count > b.count) {
+    return -1;
+  }
+
+  if (a.count < b.count) {
+    return 1;
+  }
+
+  return 0;
+}
+
 async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
   return packageInfo(name).then(async info => {
     if (maxLevels === currentLevel) {
@@ -26,14 +38,15 @@ async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
 }
 
 function totalMaintainersFromLibs(libs, current = []) {
-  return libs.map(lib => lib.maintainers)
-    .reduce((totals, maintainers = []) => {
+  return libs
+    .reduce((totals, { name, maintainers = [] }) => {
       const updated = totals
         .map(maintainer => {
           if (maintainers.find(item => item.name === maintainer.name)) {
             return {
               ...maintainer,
               count: maintainer.count + 1,
+              libs: [...maintainer.libs, name],
             };
           }
 
@@ -46,6 +59,7 @@ function totalMaintainersFromLibs(libs, current = []) {
           name: maintainer.name,
           avatar: gravatar.url(maintainer.email),
           count: 1,
+          libs: [name],
         }));
 
       return [
@@ -69,17 +83,27 @@ export async function maintainersCountOfProject(dependencies) {
       return maintainers;
     }, []);
 
-  const sortedMaintainerCount = [...maintainerCount].sort((a, b) => {
-    if (a.count > b.count) {
-      return -1;
-    }
+  const sortedMaintainerCount = [...maintainerCount].sort(sortByCount);
 
-    if (a.count < b.count) {
-      return 1;
-    }
+  const limitedMaintainers = sortedMaintainerCount.filter((item, index) => index < 20);
 
-    return 0;
-  });
+  return limitedMaintainers.map(maintainer => ({
+    ...maintainer,
+    libs: [...maintainer.libs.reduce((current, lib) => {
+      if (current.some(item => item.name === lib)) {
+        return current.map(item => {
+          if (item.name === lib) {
+            return {
+              ...item,
+              count: item.count + 1,
+            };
+          }
 
-  return sortedMaintainerCount.filter((item, index) => index < 20);
+          return item;
+        });
+      }
+
+      return [...current, { name: lib, count: 1 }];
+    }, [])].sort(sortByCount),
+  }));
 }
