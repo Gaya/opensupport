@@ -31,6 +31,7 @@
     "koa-multer": "^1.0.2",
     "koa-router": "^7.3.0",
     "koa-static": "^4.0.2",
+    "mysql2": "^1.5.1",
     "node-sass": "^4.7.2",
     "npm-package-arg": "^6.0.0",
     "preact": "^8.2.7",
