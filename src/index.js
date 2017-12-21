@@ -1,3 +1,5 @@
+// @flow
+
 import Koa from 'koa';
 import koaStatic from 'koa-static';
 import json from 'koa-json';

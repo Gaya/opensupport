@@ -1,3 +1,5 @@
+// @flow
+
 import Router from 'koa-router';
 import multer from 'koa-multer';
 import fs from 'fs';
@@ -7,7 +9,7 @@ import { jsonToDependencies } from './helpers';
 
 const upload = multer({ dest: 'tmp/' });
 
-function readUpload(path) {
+function readUpload(path: string): Promise<string> {
   return new Promise(resolve => {
     fs.readFile(path, (err, data) => {
       if (err) {
