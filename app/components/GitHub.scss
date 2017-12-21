@@ -1,0 +1,26 @@
+.GitHub {
+  padding: 20px;
+  border: 1px solid #ddd;
+  position: relative;
+  flex-basis: 50%;
+  flex-shrink: 1;
+  margin-right: 20px;
+
+  &__intro {
+    margin: 0 0 20px 0;
+  }
+
+  &__input {
+    outline: none;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    background: #ededed;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+
+    &:hover, &:focus {
+      border-color: #9561e2;
+    }
+  }
+}

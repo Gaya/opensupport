@@ -8,6 +8,11 @@
   &__title {
     font-size: 3.25rem;
   }
+
+  &__options {
+    display: flex;
+    margin: 20px 0;
+  }
 }
 
 a {

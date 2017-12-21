@@ -39,7 +39,7 @@ class Upload extends Component {
 
   render({ processing }) {
     return (
-      <form className="Upload" method="POST">
+      <form className="Upload">
         <p className="Upload__intro">
           Upload a package.json file to scan for top maintainers
         </p>

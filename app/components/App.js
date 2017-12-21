@@ -1,6 +1,7 @@
 import { h } from 'preact';
 
 import Upload from './Upload';
+import GitHub from './GitHub';
 import Maintainers from './Maintainers';
 
 import './App.scss';
@@ -21,6 +22,7 @@ function App() {
       </p>
 
       <section className="App__options">
+        <GitHub />
         <Upload />
       </section>
 
