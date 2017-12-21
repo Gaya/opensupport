@@ -1,9 +1,8 @@
-import fs from 'fs';
 import async from 'async';
 import request from 'request';
 import npa from 'npm-package-arg';
 
-const filesDir = `${__dirname}/../../files`;
+import Package from '../models/Package';
 
 const resolveQueue = {};
 
@@ -27,17 +26,15 @@ const npmQueue = async.queue(({ name }, callback) => {
       callback(error, null);
     }
 
-    fs.writeFile(`${filesDir}/${encodeURIComponent(name)}.json`, body, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.info(`Wrote ${name}.json`);
-      }
+    const data = JSON.parse(body);
 
-      const info = JSON.parse(body);
-
-      callback(null, info);
-    });
+    Package
+      .create({
+        name,
+        data,
+      })
+      .then(() => callback(null, data))
+      .catch(e => console.error(e));
   });
 }, parseInt(process.env.QUEUE_LIMIT || 10, 10));
 
@@ -79,19 +76,12 @@ function readFromNpm(name) {
   });
 }
 
-export function packageInfo(name) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(`${filesDir}/${encodeURIComponent(name)}.json`, (err, data) => {
-      if (err && err.errno === -2) {
-        return resolve(readFromNpm(name));
-      }
+export async function packageInfo(name) {
+  const packagejson = await Package.findOne({ where: { name } });
 
-      try {
-        return resolve(JSON.parse(data.toString()));
-      } catch (e) {
-        console.error(e);
-        reject(e);
-      }
-    });
-  });
+  if (!packagejson) {
+    return readFromNpm(name);
+  }
+
+  return packagejson.data;
 }
