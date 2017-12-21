@@ -1,4 +1,6 @@
-const receiveMaintainers = maintainers => ({ type: 'RECEIVE_MAINTAINERS', maintainers });
+import github from './github';
+
+export const receiveMaintainers = maintainers => ({ type: 'RECEIVE_MAINTAINERS', maintainers });
 
 const onUploadFile = (dispatch, action) => {
   var formData  = new FormData();
@@ -20,4 +22,6 @@ const onUploadFile = (dispatch, action) => {
 
 export default function registerListeners(listenMiddleware) {
   listenMiddleware.addListener('UPLOAD_FILE', onUploadFile);
+
+  github(listenMiddleware);
 }

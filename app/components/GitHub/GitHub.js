@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import { githubMatched, githubError } from './actions';
+import { githubMatched, githubError, githubScanRepository } from './actions';
 
 import SVGImage from '../SVGImage';
 import Logo from './GitHubLogo.svg';
@@ -16,6 +16,23 @@ class GitHub extends Component {
     super(props);
 
     this.onScanUrl = this.scanUrl.bind(this);
+    this.onScanAccount = this.scanAccount.bind(this);
+    this.onScanRepository = this.scanRepository.bind(this);
+  }
+
+  catchSubmit(e) {
+    e.preventDefault();
+  }
+
+  scanAccount() {
+    const { username } = this.props;
+    console.log(username);
+  }
+
+  scanRepository() {
+    const { username, repository } = this.props;
+
+    this.props.dispatch(githubScanRepository(username, repository));
   }
 
   scanUrl(e) {
@@ -35,7 +52,7 @@ class GitHub extends Component {
 
   render({ error, username, repository }) {
     return (
-      <form className="GitHub">
+      <form className="GitHub" onSubmit={this.catchSubmit}>
         <div className="GitHub__intro">
           <SVGImage className="GitHub__logo" svg={Logo} />
           <p>Scan your Github account or enter URL to a repository:</p>
@@ -52,8 +69,20 @@ class GitHub extends Component {
 
         {username !== '' && (
           <div className="GitHub__options">
-            <button className="Button">Scan account</button>
-            {repository !== '' && <button className="Button">Scan {username}/{repository}</button>}
+            <button
+              className="Button"
+              onClick={this.onScanAccount}
+            >
+              Scan account
+            </button>
+            {repository !== '' && (
+              <button
+                className="Button"
+                onClick={this.onScanRepository}
+              >
+                Scan {username}/{repository}
+              </button>
+            )}
           </div>
         )}
       </form>
