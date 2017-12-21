@@ -1,10 +1,9 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import './GitHub.scss';
+import { githubMatched, githubError } from './actions';
 
-const githubError = error => ({ type: 'GITHUB_ERROR', error });
-const githubMatched = (username, repository) => ({ type: 'GITHUB_MATCHED', username, repository });
+import './GitHub.scss';
 
 const exp = new RegExp(/https:\/\/github.com\/([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?/gi);
 
@@ -29,7 +28,7 @@ class GitHub extends Component {
     this.props.dispatch(githubError('Not a valid GitHub url'));
   }
 
-  render() {
+  render({ error }) {
     return (
       <form className="GitHub">
         <p className="GitHub__intro">
@@ -42,13 +41,19 @@ class GitHub extends Component {
           placeholder="https://github.com/username/repo"
           onChange={this.onScanUrl}
         />
+
+        {error !== '' && <div className="GitHub__error">{error}</div>}
       </form>
     );
   }
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps(state) {
+  const { error } = state.github;
+
+  return {
+    error,
+  };
 }
 
 export default connect(mapStateToProps)(GitHub);

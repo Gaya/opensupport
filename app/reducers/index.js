@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import github from './github';
+
 const processing = (state = false, action) => {
   switch (action.type) {
     case 'RECEIVE_MAINTAINERS':
@@ -18,9 +20,10 @@ const maintainers = (state = [], action) => {
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   processing,
   maintainers,
+  github,
 });

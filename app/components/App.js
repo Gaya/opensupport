@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 import Upload from './Upload';
-import GitHub from './GitHub';
+import GitHub from './GitHub/GitHub';
 import Maintainers from './Maintainers';
 
 import './App.scss';
