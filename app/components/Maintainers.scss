@@ -1,5 +1,5 @@
 .Maintainers {
-  margin: 20px 0;
+  margin: 20px 0 40px 0;
 }
 
 .Maintainer {
@@ -47,5 +47,21 @@
     strong {
       color: #333;
     }
+  }
+
+  &__libs {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.Lib {
+  margin-right: 6px;
+  display: inline;
+  text-decoration: none;
+  color: #808080;
+
+  &:hover {
+    color: #9561e2;
   }
 }

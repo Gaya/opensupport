@@ -3,7 +3,13 @@ import { connect } from 'preact-redux';
 
 import './Maintainers.scss';
 
-function Maintainer({ name, avatar, count }) {
+function Lib({ name }) {
+  return (
+    <a className="Lib" href={`https://npmjs.com/${name}`}>{name}</a>
+  );
+}
+
+function Maintainer({ name, avatar, count, libs }) {
   return (
     <div className="Maintainer">
       <picture className="Maintainer__avatar">
@@ -14,7 +20,10 @@ function Maintainer({ name, avatar, count }) {
           <a href={`https://www.npmjs.com/~${name}`}>{name}</a>
         </div>
         <div className="Maintainer__count">
-          Maintains <strong>{count}</strong> of your dependencies
+          Maintains <strong>{count}</strong> of your project's dependencies, including:
+        </div>
+        <div className="Maintainer__libs">
+          {libs.filter((i, index) => index < 5).map(Lib)}
         </div>
       </div>
     </div>
