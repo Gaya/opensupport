@@ -20,8 +20,13 @@ function App() {
         find out with maintainers' packages are used the most.
       </p>
 
-      <Upload />
-      <Maintainers />
+      <section className="App__options">
+        <Upload />
+      </section>
+
+      <section className="App__results">
+        <Maintainers />
+      </section>
 
       <p>
         OpenSupport is an idea by <a href="https://twitter.com/GayaKessler">Gaya Kessler</a>,

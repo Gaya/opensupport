@@ -19,6 +19,10 @@ const store = createStore(
 
 registerListeners(listenMiddleware);
 
+if (!document.body) {
+  throw new Error('There is no document body');
+}
+
 render((
   <Provider store={store}>
     <App />
