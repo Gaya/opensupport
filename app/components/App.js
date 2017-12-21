@@ -30,8 +30,7 @@ function App() {
 
       <p>
         Planned features: composer.json support, scan GitHub repository, scan GitHub account,
-        donate links for mainters, donate links for packages, packages maintained by maintainer in
-        results.
+        show most packages used as result, donate links for mainters, donate links for packages.
       </p>
     </div>
   );
