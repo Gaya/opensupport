@@ -11,6 +11,8 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
   },
 
+  devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : false,
+
   module: {
     rules: [{
       test: /\.js$/,
