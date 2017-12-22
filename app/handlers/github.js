@@ -7,7 +7,9 @@ const raw = 'https://raw.githubusercontent.com';
 function getPackageJson(username, repository, branch) {
   const url = `${raw}/${username}/${repository}/${branch}/package.json`;
 
-  return fetch(url).then(response => response.json());
+  return fetch(url)
+    .then(response => response.json())
+    .catch(() => { throw new Error('Could not find package.json file'); });
 }
 
 const onScanRepository = (dispatch, action) => {
@@ -32,7 +34,8 @@ const onSendJson = (dispatch, action) => {
       body: JSON.stringify(action.packageJson),
     })
     .then(response => response.json())
-    .then(maintainers => dispatch(receiveMaintainers(maintainers)));
+    .then(maintainers => dispatch(receiveMaintainers(maintainers)))
+    .catch(e => dispatch(githubError(e.message)));
 };
 
 export default function registerListeners(listenMiddleware) {
