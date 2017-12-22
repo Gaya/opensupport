@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './app/index',
@@ -48,5 +49,12 @@ module.exports = {
       filename: 'style.css',
       disable: process.env.NODE_ENV !== 'production',
     }),
+    new CopyWebpackPlugin([
+      {
+        from: '**/*',
+        context: './app/assets/',
+        to: './',
+      },
+    ]),
   ],
 };
