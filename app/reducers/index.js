@@ -1,3 +1,5 @@
+// @flow
+
 import { combineReducers } from 'redux';
 
 import github from './github';
@@ -22,8 +24,18 @@ const maintainers = (state = [], action) => {
   }
 };
 
+const repository = (state: string = '', action): string => {
+  switch (action.type) {
+    case 'RECEIVE_MAINTAINERS':
+      return action.response.name;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   processing,
   maintainers,
+  repository,
   github,
 });

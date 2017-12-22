@@ -14,21 +14,10 @@ class GitHub extends Component {
     super(props);
 
     this.onScanUrl = this.scanUrl.bind(this);
-    this.onScanAccount = this.scanAccount.bind(this);
-    this.onScanRepository = this.scanRepository.bind(this);
   }
 
   catchSubmit(e) {
     e.preventDefault();
-  }
-
-  scanAccount() {
-    const { username } = this.props;
-    console.log(username);
-  }
-
-  scanRepository(username, repository) {
-    this.props.dispatch(githubScanRepository(username, repository));
   }
 
   scanUrl(e) {
@@ -42,7 +31,7 @@ class GitHub extends Component {
       const [complete, username, repository] = matchedResults;
 
       this.props.dispatch(githubMatched(username, repository));
-      this.scanRepository(username, repository);
+      this.props.dispatch(githubScanRepository(username, repository));
       return;
     }
 

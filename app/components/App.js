@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { connect } from 'preact-redux';
 
 import Upload from './Upload';
 import GitHub from './GitHub/GitHub';
@@ -6,7 +7,7 @@ import Maintainers from './Maintainers';
 
 import './App.scss';
 
-function App() {
+function App({ repository }) {
   return (
     <div className="App">
       <h1 className="App__title">OpenSupport</h1>
@@ -27,6 +28,7 @@ function App() {
       </section>
 
       <section className="App__results">
+        {repository !== '' && <h2 className="Results__repository">Top maintainers of {repository}</h2>}
         <Maintainers />
       </section>
 
@@ -43,4 +45,8 @@ function App() {
   );
 }
 
-export default App;
+function mapStateToProps({ repository }) {
+  return { repository };
+}
+
+export default connect(mapStateToProps)(App);
