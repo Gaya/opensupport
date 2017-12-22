@@ -56,4 +56,18 @@
       }
     }
   }
+
+  &__processing {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(#9561e2, 0.8);
+    top: 0;
+    left: 0;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
 }
