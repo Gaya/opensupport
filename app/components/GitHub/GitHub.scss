@@ -4,7 +4,12 @@
   position: relative;
   flex-basis: 50%;
   flex-shrink: 1;
-  margin-right: 20px;
+  margin-bottom: 20px;
+
+  @media (min-width: 600px) {
+    margin-right: 20px;
+    margin-bottom: 0;
+  }
 
   &__intro {
     margin: 0 0 20px 0;

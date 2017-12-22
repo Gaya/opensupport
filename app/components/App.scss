@@ -14,6 +14,11 @@
   &__options {
     display: flex;
     margin: 20px 0;
+    flex-direction: column;
+
+    @media (min-width: 600px) {
+      flex-direction: row;
+    }
   }
 }
 

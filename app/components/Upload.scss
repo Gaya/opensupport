@@ -5,6 +5,11 @@
   flex-basis: 50%;
   flex-shrink: 1;
 
+  //@media (max-width: 600px) {
+  //  flex-basis: 100%;
+  //  flex-shrink: 1;
+  //}
+
   &__intro {
     margin: 0 0 20px 0;
   }
