@@ -29,7 +29,9 @@ function App({ repository }) {
 
       <section className="App__results">
         {repository !== '' && (
-          <h2 className="Results__repository">Top maintainers of "{repository}"</h2>
+          <h2 className="Results__repository">
+            Top maintainers {repository !== null && <span>of "{repository}"</span>}
+          </h2>
         )}
         <Maintainers />
       </section>

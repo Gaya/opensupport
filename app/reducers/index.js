@@ -24,10 +24,10 @@ const maintainers = (state = [], action) => {
   }
 };
 
-const repository = (state: string = '', action): string => {
+const repository = (state: string = '', action): string | null => {
   switch (action.type) {
     case 'RECEIVE_MAINTAINERS':
-      return action.response.name;
+      return action.response.name || null;
     default:
       return state;
   }
