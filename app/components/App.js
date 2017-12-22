@@ -10,7 +10,7 @@ import './App.scss';
 function App({ repository }) {
   return (
     <div className="App">
-      <h1 className="App__title">OpenSupport</h1>
+      <h1 className="App__title">Open<span>S</span>upport</h1>
 
       <p>
         Give support back to the open source community by finding out who maintains packages you use
