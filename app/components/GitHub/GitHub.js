@@ -9,8 +9,6 @@ import Logo from './GitHubLogo.svg';
 import './GitHub.scss';
 import '../Button.scss';
 
-const exp = new RegExp(/https:\/\/github.com\/([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?/gi);
-
 class GitHub extends Component {
   constructor(props) {
     super(props);
@@ -29,33 +27,34 @@ class GitHub extends Component {
     console.log(username);
   }
 
-  scanRepository() {
-    const { username, repository } = this.props;
-
+  scanRepository(username, repository) {
     this.props.dispatch(githubScanRepository(username, repository));
   }
 
   scanUrl(e) {
     const url = e.target.value;
+    const exp =
+      /https:\/\/github.com\/([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?([-a-zA-Z0-9@:%_+.~#?&=]*)?\/?/gi;
 
     const matchedResults = exp.exec(url);
 
-    if (matchedResults) {
+    if (matchedResults && matchedResults.length == 3) {
       const [complete, username, repository] = matchedResults;
 
       this.props.dispatch(githubMatched(username, repository));
+      this.scanRepository(username, repository);
       return;
     }
 
-    this.props.dispatch(githubError('Not a valid GitHub url'));
+    this.props.dispatch(githubError('Not a valid GitHub repository url'));
   }
 
-  render({ error, username, repository }) {
+  render({ error, loadingMsg }) {
     return (
       <form className="GitHub" onSubmit={this.catchSubmit}>
         <div className="GitHub__intro">
           <SVGImage className="GitHub__logo" svg={Logo} />
-          <p>Scan your Github account or enter URL to a repository:</p>
+          <p>Enter URL to a Github repository:</p>
         </div>
 
         <input
@@ -67,23 +66,8 @@ class GitHub extends Component {
 
         {error !== '' && <div className="GitHub__error">{error}</div>}
 
-        {username !== '' && (
-          <div className="GitHub__options">
-            <button
-              className="Button"
-              onClick={this.onScanAccount}
-            >
-              Scan account
-            </button>
-            {repository !== '' && (
-              <button
-                className="Button"
-                onClick={this.onScanRepository}
-              >
-                Scan {username}/{repository}
-              </button>
-            )}
-          </div>
+        {loadingMsg !== '' && (
+          <div className="GitHub__processing">{loadingMsg}</div>
         )}
       </form>
     );
@@ -91,12 +75,13 @@ class GitHub extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, username, repository } = state.github;
+  const { error, username, repository, loadingMsg } = state.github;
 
   return {
     error,
     username,
     repository,
+    loadingMsg,
   };
 }
 

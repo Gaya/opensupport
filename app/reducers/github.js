@@ -38,6 +38,7 @@ const repository = (state: string = '', action): string => {
 const loadingMsg = (state: string = '', action): string => {
   switch (action.type) {
     case 'GITHUB_ERROR':
+    case 'RECEIVE_MAINTAINERS':
       return '';
     case 'GITHUB_SCAN_REPOSITORY':
       return `Reading ${action.username}/${action.repository}`;
