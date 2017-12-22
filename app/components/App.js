@@ -19,7 +19,7 @@ function App({ repository }) {
 
       <p>
         OpenSupport scans your project's package.json for dependencies (and their dependencies) to
-        find out with maintainers' packages are used the most.
+        find out which maintainers' packages are used the most.
       </p>
 
       <section className="App__options">
@@ -40,8 +40,8 @@ function App({ repository }) {
       </p>
 
       <p>
-        Planned features: composer.json support, scan GitHub repository, scan GitHub account,
-        show most packages used as result, donate links for mainters, donate links for packages.
+        Planned features: composer.json support, scan GitHub account, show most used packages as
+        result, donate links for maintainers (eg. Patreon), donate links for packages.
       </p>
     </div>
   );
