@@ -1,6 +1,6 @@
 import github from './github';
 
-export const receiveMaintainers = response => ({ type: 'RECEIVE_MAINTAINERS', response });
+import { receiveMaintainers } from '../actions/receiving';
 
 const onUploadFile = (dispatch, action) => {
   var formData  = new FormData();

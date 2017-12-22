@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import { githubMatched, githubError, githubScanRepository } from './actions';
+import { githubMatched, githubError, githubScanRepository } from '../../actions/github';
 
 import SVGImage from '../SVGImage';
 import Logo from './GitHubLogo.svg';

@@ -35,8 +35,22 @@ const repository = (state: string = '', action): string => {
   }
 };
 
+const loadingMsg = (state: string = '', action): string => {
+  switch (action.type) {
+    case 'GITHUB_ERROR':
+      return '';
+    case 'GITHUB_SCAN_REPOSITORY':
+      return `Reading ${action.username}/${action.repository}`;
+    case 'GITHUB_SEND_JSON':
+      return 'Processing package.json file';
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   error,
   username,
   repository,
+  loadingMsg,
 });

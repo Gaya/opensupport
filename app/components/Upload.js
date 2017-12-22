@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-const uploadFile = file => ({ type: 'UPLOAD_FILE', file });
+import { uploadFile } from '../actions/upload';
 
 import './Upload.scss';
 import './Button.scss';
