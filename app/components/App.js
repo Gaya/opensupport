@@ -3,7 +3,7 @@ import { connect } from 'preact-redux';
 
 import Upload from './Upload';
 import GitHub from './GitHub/GitHub';
-import Maintainers from './Maintainers/Maintainers';
+import Maintainers from './Results/Maintainers';
 
 import './App.scss';
 
