@@ -1,5 +1,5 @@
 import { receiveMaintainers } from '../actions/receiving';
-import { githubSendJson, githubError } from '../actions/github';
+import { githubSendJson, githubError, githubScanRepository } from '../actions/github';
 
 const api = 'https://api.github.com';
 const raw = 'https://raw.githubusercontent.com';
@@ -38,7 +38,12 @@ const onSendJson = (dispatch, action) => {
     .catch(e => dispatch(githubError(e.message)));
 };
 
+const onGitHubMatched = (dispatch, action) => {
+  dispatch(githubScanRepository(action.username, action.repository));
+};
+
 export default function registerListeners(listenMiddleware) {
   listenMiddleware.addListener('GITHUB_SCAN_REPOSITORY', onScanRepository);
   listenMiddleware.addListener('GITHUB_SEND_JSON', onSendJson);
+  listenMiddleware.addListener('GITHUB_MATCHED', onGitHubMatched);
 }

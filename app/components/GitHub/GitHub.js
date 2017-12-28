@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { connect } from 'preact-redux';
 
-import { githubMatched, githubError, githubScanRepository } from '../../actions/github';
+import { githubMatched, githubError } from '../../actions/github';
 
 import SVGImage from '../SVGImage';
 import Logo from './GitHubLogo.svg';
@@ -31,7 +31,6 @@ class GitHub extends Component {
       const [complete, username, repository] = matchedResults;
 
       this.props.dispatch(githubMatched(username, repository));
-      this.props.dispatch(githubScanRepository(username, repository));
       return;
     }
 
