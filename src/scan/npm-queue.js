@@ -6,6 +6,33 @@ import Package from '../models/Package';
 
 const resolveQueue = {};
 
+async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
+  return packageInfo(name).then(async info => {
+    if (maxLevels === currentLevel) {
+      return info;
+    }
+
+    const dependencies = jsonToDependencies(info);
+
+    if (dependencies && dependencies.length > 0) {
+      return {
+        ...info,
+        children: await Promise.all(dependencies.map(dependency => recursivePackageInfo(
+          dependency,
+          currentLevel + 1,
+          maxLevels,
+        ))),
+      };
+    }
+
+    return info;
+  });
+}
+
+export function projectInfo(dependencies) {
+  return Promise.all(dependencies.map(dependency => recursivePackageInfo(dependency)));
+}
+
 function createUri(parsed) {
   const base = 'https://registry.npmjs.org';
 

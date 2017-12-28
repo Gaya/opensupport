@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "postinstall": "npm run build && npm run sync",
+    "test": "jest",
     "sync": "node -r babel-register ./src/sync.js",
     "start": "node -r babel-register ./src/index.js",
     "start:dev": "webpack-dev-server --hot",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
+    "babel-jest": "^22.0.4",
     "eslint": "^4.13.1",
     "eslint-config-standard-preact": "^1.1.6",
     "flow-bin": "^0.61.0",

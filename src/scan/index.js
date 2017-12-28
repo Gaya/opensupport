@@ -5,8 +5,9 @@ import Router from 'koa-router';
 import multer from 'koa-multer';
 import json from 'koa-json';
 
+import { jsonToDependencies } from './helpers';
+import { projectInfo } from './npm-queue';
 import { maintainersCountOfProject } from './maintainers';
-import { jsonToDependencies, projectInfo } from './helpers';
 import { packageCountOfProject } from './packages';
 
 const upload = multer({ dest: 'tmp/' });
