@@ -1,41 +1,6 @@
-import { packageInfo } from './npm-queue';
-import { jsonToDependencies } from './helpers';
 import gravatar from 'gravatar';
 
-function sortByCount(a, b) {
-  if (a.count > b.count) {
-    return -1;
-  }
-
-  if (a.count < b.count) {
-    return 1;
-  }
-
-  return 0;
-}
-
-async function recursivePackageInfo(name, currentLevel = 1, maxLevels = 2) {
-  return packageInfo(name).then(async info => {
-    if (maxLevels === currentLevel) {
-      return info;
-    }
-
-    const dependencies = jsonToDependencies(info);
-
-    if (dependencies && dependencies.length > 0) {
-      return {
-        ...info,
-        children: await Promise.all(dependencies.map(dependency => recursivePackageInfo(
-          dependency,
-          currentLevel + 1,
-          maxLevels,
-        ))),
-      };
-    }
-
-    return info;
-  });
-}
+import { sortByCount } from './helpers';
 
 function totalMaintainersFromLibs(libs, current = []) {
   return libs
@@ -69,9 +34,7 @@ function totalMaintainersFromLibs(libs, current = []) {
     }, current);
 }
 
-export async function maintainersCountOfProject(dependencies) {
-  const info = await Promise.all(dependencies.map(dependency => recursivePackageInfo(dependency)));
-
+export function maintainersCountOfProject(info) {
   const maintainerCount = info
     .reduce((totals, lib) => {
       const maintainers = totalMaintainersFromLibs([lib], totals);

@@ -6,7 +6,8 @@ import multer from 'koa-multer';
 import json from 'koa-json';
 
 import { maintainersCountOfProject } from './maintainers';
-import { jsonToDependencies } from './helpers';
+import { jsonToDependencies, projectInfo } from './helpers';
+import { packageCountOfProject } from './packages';
 
 const upload = multer({ dest: 'tmp/' });
 
@@ -30,10 +31,12 @@ const router = new Router({
 
 async function parsePackageJson(packageJson) {
   const dependencies = jsonToDependencies(packageJson);
+  const info = await projectInfo(dependencies);
 
   return {
     name: packageJson.name,
-    maintainers: await maintainersCountOfProject(dependencies),
+    maintainers: maintainersCountOfProject(info),
+    packages: packageCountOfProject(info),
   };
 }
 
