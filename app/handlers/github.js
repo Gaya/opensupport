@@ -51,11 +51,11 @@ const onGitHubMatched = (dispatch, { username, repository }) => {
   dispatch(githubScanRepository(username, repository));
 
   if (window.history) {
-    history.pushState(
-      { username, repository },
-      `Top maintainers of ${username}/${repository} | OpenSupport`,
-      `/github/${username}/${repository}`,
-    );
+    const title = `Top maintainers of ${username}/${repository} | OpenSupport`;
+
+    document.title = title;
+
+    history.pushState({ username, repository }, title, `/github/${username}/${repository}`);
   }
 };
 

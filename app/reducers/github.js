@@ -49,9 +49,19 @@ const loadingMsg = (state: string = '', action): string => {
   }
 };
 
+const url = (state: string = '', action): string => {
+  switch (action.type) {
+    case 'GITHUB_MATCHED':
+      return `https://github.com/${action.username}/${action.repository}`;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   error,
   username,
   repository,
   loadingMsg,
+  url,
 });

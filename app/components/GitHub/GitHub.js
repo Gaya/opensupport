@@ -37,7 +37,7 @@ class GitHub extends Component {
     this.props.dispatch(githubError('Not a valid GitHub repository url'));
   }
 
-  render({ error, loadingMsg }) {
+  render({ error, loadingMsg, url }) {
     return (
       <form className="GitHub" onSubmit={this.catchSubmit}>
         <div className="GitHub__intro">
@@ -48,6 +48,7 @@ class GitHub extends Component {
         <input
           className="GitHub__input"
           type="text"
+          value={url}
           placeholder="https://github.com/username/repo"
           onInput={this.onScanUrl}
         />
@@ -63,13 +64,14 @@ class GitHub extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, username, repository, loadingMsg } = state.github;
+  const { error, username, repository, loadingMsg, url } = state.github;
 
   return {
     error,
     username,
     repository,
     loadingMsg,
+    url,
   };
 }
 
