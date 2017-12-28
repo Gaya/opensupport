@@ -52,13 +52,14 @@ function Maintainers({ maintainers, repository, github }) {
 
   return (
     <div className="Maintainers">
-      {repository !== '' && (
-        <h2 className="Results__repository">
-          Top maintainers {repository !== null && <span>of "{repository}"</span>}
-
-          <Share repository={repository} github={github} />
-        </h2>
-      )}
+      <section className="Maintainers__header">
+        {repository !== '' && (
+          <h2 className="Results__repository">
+            Top maintainers {repository !== null && <span>of "{repository}"</span>}
+          </h2>
+        )}
+        <Share repository={repository} github={github} />
+      </section>
       <div className="Maintainers__list">
         {maintainers.map(Maintainer)}
       </div>
