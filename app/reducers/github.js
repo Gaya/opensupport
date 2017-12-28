@@ -17,6 +17,7 @@ const username = (state: string = '', action): string => {
   switch (action.type) {
     case 'GITHUB_MATCHED':
       return action.username;
+    case 'UPLOAD_FILE':
     case 'GITHUB_ERROR':
       return '';
     default:
@@ -28,6 +29,7 @@ const repository = (state: string = '', action): string => {
   switch (action.type) {
     case 'GITHUB_MATCHED':
       return action.repository;
+    case 'UPLOAD_FILE':
     case 'GITHUB_ERROR':
       return '';
     default:
@@ -51,6 +53,8 @@ const loadingMsg = (state: string = '', action): string => {
 
 const url = (state: string = '', action): string => {
   switch (action.type) {
+    case 'UPLOAD_FILE':
+      return '';
     case 'GITHUB_MATCHED':
       return `https://github.com/${action.username}/${action.repository}`;
     default:
