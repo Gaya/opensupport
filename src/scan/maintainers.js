@@ -57,7 +57,7 @@ function totalMaintainersFromLibs(libs, current = []) {
         .filter(maintainer => !totals.find(item => item.name === maintainer.name))
         .map(maintainer => ({
           name: maintainer.name,
-          avatar: gravatar.url(maintainer.email),
+          avatar: gravatar.url(maintainer.email, {}, 'https'),
           count: 1,
           libs: [name],
         }));
