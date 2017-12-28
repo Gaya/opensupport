@@ -1,5 +1,10 @@
 import { receiveMaintainers } from '../actions/receiving';
-import { githubSendJson, githubError, githubScanRepository } from '../actions/github';
+import {
+  githubSendJson,
+  githubError,
+  githubScanRepository,
+  githubMatched,
+} from '../actions/github';
 
 const api = 'https://api.github.com';
 const raw = 'https://raw.githubusercontent.com';
@@ -54,8 +59,23 @@ const onGitHubMatched = (dispatch, { username, repository }) => {
   }
 };
 
+const readUrl = (dispatch) => {
+  if (!window.location) {
+    return;
+  }
+
+  const exp = /^\/github\/([-a-zA-Z0-9@:%_+.~#?&=]+)\/([-a-zA-Z0-9@:%_+.~#?&=]*)\/?/gi;
+
+  const [complete, username, repository] = exp.exec(window.location.pathname);
+
+  if (username && repository) {
+    dispatch(githubMatched(username, repository));
+  }
+}
+
 export default function registerListeners(listenMiddleware) {
   listenMiddleware.addListener('GITHUB_SCAN_REPOSITORY', onScanRepository);
   listenMiddleware.addListener('GITHUB_SEND_JSON', onSendJson);
   listenMiddleware.addListener('GITHUB_MATCHED', onGitHubMatched);
+  listenMiddleware.addListener('INITIALIZE', readUrl);
 }
