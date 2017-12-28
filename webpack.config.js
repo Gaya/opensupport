@@ -14,6 +14,10 @@ module.exports = {
 
   devtool: process.env.NODE_ENV !== 'production' ? 'source-map' : false,
 
+  devServer: {
+    historyApiFallback: true,
+  },
+
   module: {
     rules: [{
       test: /\.js$/,
