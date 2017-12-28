@@ -35,7 +35,7 @@ class App extends Component {
         </section>
 
         <section className="App__results">
-          <Packages />
+          {/*<Packages />*/}
           <Maintainers />
         </section>
 
