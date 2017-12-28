@@ -12,7 +12,7 @@ class App extends Component {
     this.props.dispatch({ type: 'INITIALIZE' });
   }
 
-  render({ repository }) {
+  render() {
     return (
       <div className="App">
         <h1 className="App__title">OpenSupport</h1>
@@ -34,11 +34,6 @@ class App extends Component {
         </section>
 
         <section className="App__results">
-          {repository !== '' && (
-            <h2 className="Results__repository">
-              Top maintainers {repository !== null && <span>of "{repository}"</span>}
-            </h2>
-          )}
           <Maintainers />
         </section>
 
@@ -56,8 +51,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ repository }) {
-  return { repository };
-}
-
-export default connect(mapStateToProps)(App);
+export default connect()(App);
