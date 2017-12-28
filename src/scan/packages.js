@@ -18,7 +18,7 @@ function sumProjects(totals, lib) {
     totalsCopy = [...totalsCopy, {
       name: lib.name,
       count: 1,
-      maintainers: lib.maintainers.map(maintainer => maintainer.name),
+      maintainers: (lib.maintainers || []).map(maintainer => maintainer.name),
     }];
   }
 
