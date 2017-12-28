@@ -1,8 +1,9 @@
 // @flow
 
+import fs from 'fs';
 import Router from 'koa-router';
 import multer from 'koa-multer';
-import fs from 'fs';
+import json from 'koa-json';
 
 import { maintainersCountOfProject } from './maintainers';
 import { jsonToDependencies } from './helpers';
@@ -62,5 +63,7 @@ router.post('/json', async (ctx) => {
     ctx.throw(500, e.message);
   }
 });
+
+router.use(json({ pretty: false }));
 
 export default router;
