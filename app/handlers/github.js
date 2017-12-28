@@ -38,8 +38,20 @@ const onSendJson = (dispatch, action) => {
     .catch(e => dispatch(githubError(e.message)));
 };
 
-const onGitHubMatched = (dispatch, action) => {
-  dispatch(githubScanRepository(action.username, action.repository));
+const onGitHubMatched = (dispatch, { username, repository }) => {
+  if (!repository) {
+    return;
+  }
+
+  dispatch(githubScanRepository(username, repository));
+
+  if (window.history) {
+    history.pushState(
+      { username, repository },
+      `Top maintainers of ${username}/${repository} | OpenSupport`,
+      `/github/${username}/${repository}`,
+    );
+  }
 };
 
 export default function registerListeners(listenMiddleware) {
