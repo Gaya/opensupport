@@ -4,6 +4,7 @@ import { connect } from 'preact-redux';
 import Upload from './Upload';
 import GitHub from './GitHub/GitHub';
 import Maintainers from './Results/Maintainers';
+import Packages from './Results/Packages';
 
 import './App.scss';
 
@@ -34,6 +35,7 @@ class App extends Component {
         </section>
 
         <section className="App__results">
+          <Packages />
           <Maintainers />
         </section>
 
