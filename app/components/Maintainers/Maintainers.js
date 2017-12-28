@@ -1,6 +1,9 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 
+import SVGImage from '../SVGImage';
+import Twitter from './TwitterSocialIcon.svg';
+
 import './Maintainers.scss';
 
 function Lib({ name }) {
@@ -39,8 +42,11 @@ function Share({ repository, github }) {
   const url = `https://opensupport.me/github/${github.username}/${github.repository}`;
 
   return (
-    <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(url)}`}>
-      Share on Twitter
+    <a
+      className="ShareIcon"
+      href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(url)}`}
+    >
+      <SVGImage svg={Twitter} />
     </a>
   );
 }
