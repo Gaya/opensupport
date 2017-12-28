@@ -1,4 +1,4 @@
-import { receiveMaintainers } from '../actions/receiving';
+import { receiveResults } from '../actions/receiving';
 import {
   githubSendJson,
   githubError,
@@ -39,7 +39,7 @@ const onSendJson = (dispatch, action) => {
       body: JSON.stringify(action.packageJson),
     })
     .then(response => response.json())
-    .then(maintainers => dispatch(receiveMaintainers(maintainers)))
+    .then(result => dispatch(receiveResults(result)))
     .catch(e => dispatch(githubError(e.message)));
 };
 

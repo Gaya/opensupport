@@ -1,1 +1,1 @@
-export const receiveMaintainers = response => ({ type: 'RECEIVE_MAINTAINERS', response });
+export const receiveResults = response => ({ type: 'RECEIVE_RESULTS', response });
